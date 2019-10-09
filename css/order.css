@@ -1,0 +1,266 @@
+@charset "UTF-8";
+@font-face {
+  font-family: 'myfont';
+  src: url('../fonts/icomoon.eot') format('eot'), url('../fonts/icomoon.svg') format('svg'), url('../fonts/icomoon.ttf') format('ttf'), url('../fonts/icomoon.woff') format('woff');
+  font-style: normal;
+  font-weight: normal;
+}
+.center {
+  width: 1000px;
+  margin: 0 auto;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+ul,
+li {
+  list-style: none;
+}
+header div.top {
+  width: 1000px;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  line-height: 30px;
+}
+header div.top span:nth-child(1) {
+  font-weight: bold;
+  font-size: 13px;
+  padding-left: 40px;
+}
+header div.top span:nth-child(1):before {
+  content: '\f005';
+  position: absolute;
+  font-family: myfont;
+  color: #F2BA05;
+  margin-left: -16px;
+  margin-top: 1px;
+}
+header div.top span:nth-child(2) {
+  font-size: 13px;
+}
+header div.top span:nth-child(2) a {
+  color: black;
+}
+header div.bottom {
+  height: 86px;
+  background-color: #1D7AD9;
+  width: 100%;
+}
+header div.bottom > ul {
+  width: 1000px;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: url("../images/logo.png") no-repeat left center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  padding: 20px 0;
+  font-size: 12px;
+}
+header div.bottom > ul li {
+  width: 150px;
+}
+header div.bottom > ul li span {
+  display: inline-block;
+  margin-left: -15px;
+  font-weight: bold;
+}
+header div.bottom > ul li p {
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 23px;
+  margin-bottom: 5px;
+}
+header div.bottom > ul li:not(:last-child) p {
+  background-color: #FFF001;
+}
+header div.bottom > ul li:not(:last-child) span {
+  color: #FFF001;
+}
+header div.bottom > ul li:last-child p {
+  background-color: #8EBDEC;
+}
+header div.bottom > ul li:last-child span {
+  color: white;
+}
+header div.bottom > ul li:nth-child(2) p:before {
+  content: '';
+  width: 135px;
+  height: 3px;
+  background-color: #8EBDEC;
+  position: absolute;
+  margin-top: 10px;
+  margin-left: 15px;
+}
+header div.bottom > ul li:nth-child(2) p:after {
+  content: '';
+  width: 135px;
+  height: 3px;
+  background-color: #FFF001;
+  position: absolute;
+  margin-top: 10px;
+  margin-left: -145px;
+}
+main {
+  width: 1000px;
+  margin: 0 auto;
+  font-size: 13px;
+}
+main h3 {
+  background-color: #F2F2F2;
+  padding: 6px 20px;
+  font-weight: normal;
+  font-size: 16px;
+}
+main section {
+  border: 1px solid #E3E3E3;
+  margin: 20px 0;
+}
+main section label {
+  display: block;
+  padding: 10px 0 10px 30px;
+}
+main section label select,
+main section label input {
+  height: 24px;
+}
+main section.panel1 {
+  padding-bottom: 20px;
+}
+main section.panel1 label {
+  position: relative;
+}
+main section.panel1 label:before {
+  content: '*';
+  color: #FF0087;
+  position: absolute;
+  left: 18px;
+  top: 15px;
+}
+main section.panel1 label:nth-child(3) input {
+  width: 300px;
+}
+main section.panel1 label:nth-child(5) input:nth-child(2) {
+  width: 50px;
+}
+main section.panel1 button {
+  border: 1px solid #3784ED;
+  outline: none;
+  background-color: #3F8DF7;
+  width: 130px;
+  line-height: 26px;
+  color: white;
+  margin: 20px 30px;
+}
+main section.panel2 {
+  padding-bottom: 20px;
+}
+main section.panel2 label input {
+  vertical-align: bottom;
+}
+main section.panel3 {
+  padding-bottom: 20px;
+}
+main section.panel3 label:nth-child(2) input {
+  vertical-align: bottom;
+}
+main section.panel3 button {
+  outline: none;
+  border: 1px solid #3784ED;
+  background-color: #418FF9;
+  width: 60px;
+  line-height: 25px;
+  color: white;
+  margin-left: 30px;
+}
+main section.panel4 h3 a {
+  display: inline-block;
+  margin-left: 780px;
+  text-decoration: none;
+  color: #3377ff;
+  font-size: 12px;
+}
+main section.panel4 h3 a:hover {
+  -webkit-text-decoration: underline  #3377ff;
+          text-decoration: underline  #3377ff;
+}
+main section.panel4 table tr {
+  line-height: 35px;
+}
+main section.panel4 table tr:nth-child(2) td {
+  border: none;
+}
+main section.panel4 table tr td {
+  border-bottom: 1px solid #e6e6e6;
+  text-align: center;
+  padding: 0px 39px;
+}
+main section.panel4 div {
+  padding: 10px 0 10px 30px;
+}
+main section.panel4 div a {
+  display: inline-block;
+  text-decoration: none;
+  color: #3377ff;
+  font-size: 12px;
+  margin-bottom: 30px;
+}
+main section.panel4 div a:hover {
+  -webkit-text-decoration: underline  #3377ff;
+          text-decoration: underline  #3377ff;
+}
+main section.panel4 div p {
+  margin-bottom: 30px;
+  padding-left: 25px;
+  color: red;
+  font-size: 12px;
+}
+main section.panel4 div p:before {
+  content: '';
+  position: absolute;
+  width: 13px;
+  height: 14px;
+  background-image: url(../images/icon16.jpg);
+  margin-left: -25px;
+  margin-top: 1px;
+}
+main section.panel4 div figure {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+main section.panel4 div figure figcaption {
+  margin-left: 20px;
+  line-height: 25px;
+}
+main section.panel4 div {
+  text-align: right;
+  height: 100px;
+  padding-right: 30px;
+  margin-top: 50px;
+}
+main section.panel4 div price {
+  color: #FF0000;
+  font-size: 25px;
+  font-weight: bold;
+}
+main section.panel4 div button {
+  width: 160px;
+  height: 30px;
+  background-color: red;
+  color: white;
+  border: none;
+  font-size: 17px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}

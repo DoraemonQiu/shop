@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>淘宝网</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/order.css">
+    <style>
+        main{
+            margin-top: 150px;
+        }
+        #content tr td input{
+            text-align: center;
+            width: 50px;
+            height: 25px;
+        }
+        main section.panel4 table tr td {
+            border-bottom: 1px solid #e6e6e6;
+            text-align: center;
+            padding: 0px 20px;
+        }
+    </style>
+</head>
+<body>
+<header id="head"></header>
+<main>
+    <section class="panel4">
+        <h3>订单结算
+            <a href="#">返回购物车修改</a>
+        </h3>
+        <table id="content">
+            <tr>
+                <td colspan="2">商品名称</td>
+                <td>单价</td>
+                <td>数量</td>
+                <td>小计</td>
+            </tr>
+        </table>
+        <div>
+            <button id="buy">提交订单</button>
+        </div>
+    </section>
+</main>
+<footer id="foot" class="footer text-center" style=" width: 100%; position: fixed;bottom: -10px;left: 0;"></footer>
+<script src="js/jquery-2.1.3.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script>
+    $('#head').load('header.html');
+    $('#foot').load('footer.html');
+    var id=location.search.split('=')[1],num,title,isSend,total;
+    $.getJSON('php/getBuyMessage.php'+location.search,function (res) {
+        var str=` <tr>
+                <td rowspan="2"><img src="${res.imgsrc}" alt="" style="width: 100px"></td>
+                <td>${res.name}</td>
+                <td id="price">${res.price}</td>
+                <td><input type="number" value="1" min="1" id="num"></td>
+                <td style="color: #FF0000" id="total">${res.price}</td>
+            </tr>`
+        $('#content').append(str);
+        title=res.name;
+        $('#num').click(function () {
+            num=$('#num').val();
+            total=($('#price').text())*num;
+            $('#total').html(total);
+        })
+
+    })
+    $.getJSON('php/isSend.php',function (res) {
+        isSend=res.is_pay;
+    })
+    $('#buy').click(function () {
+        if(isSend==='1'){
+            alert('您购买的商品还未发货，请稍后再支付');
+        }else{
+            num=$('#num').val();
+            total=($('#price').text())*num;
+            var json=JSON.stringify([{id,num,title}]);
+            $.getJSON('php/buyNow.php',{json,total},function (res) {
+                if(res===1){
+                    alert('购买成功，等待发货');
+                }else{
+                    alert('购买失败，检查网络等原因')
+                }
+            })
+        }
+    })
+
+</script>
+</body>
+</html>

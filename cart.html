@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>淘宝网</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #74d4de;
+        }
+        div.box {
+            width: 900px;
+            margin: 150px auto 0;
+        }
+
+        div.box table {
+            border-collapse: collapse;
+            width: inherit;
+            text-align: center;
+            background-color: #f6f6f6;
+        }
+
+        div.box table td, div.box th {
+            border: 1px solid #999;
+            text-align: center;
+        }
+
+        div.box th {
+            height: 40px;
+        }
+
+        div.box table tbody img {
+            height: 50px;
+        }
+
+        div.box table tbody tr span {
+            cursor: default;
+        }
+
+        div.box table tbody tr td:nth-child(2) img {
+            vertical-align: middle;
+        }
+
+        div.box table tbody tr td:nth-child(4) span {
+            display: inline-block;
+            width: 15px;
+            line-height: 30px;
+            background-color: #666;
+            color: #eee;
+            vertical-align: middle;
+        }
+
+        div.box table tbody tr td:nth-child(4) input {
+            width: 20px;
+            height: 20px;
+            outline: none;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        div.box table tbody tr td:nth-child(6) span {
+            padding: 4px 10px;
+            background-color: #999;
+            color: white;
+        }
+
+        div.box div.bottom {
+            padding: 15px 0;
+            margin-top: 15px;
+            height: 50px;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        div.box div.bottom span.delAll {
+            cursor: default;
+        }
+
+        div.box div.bottom div.js {
+            padding: 0 6px;
+            background-color: #00A5FF;
+            color: white;
+            margin-right: 10px;
+            cursor: default;
+        }
+
+        div.box div.bottom aside div {
+            display: inline-block;
+        }
+
+        div.box div.bottom aside div span {
+            position: absolute;
+            width: 50px;
+            line-height: 20px;
+            padding: 0 5px;
+            background-color: rgba(255, 255, 255, .4);
+            color: #333;
+            font-size: 10px;
+            margin-left: -60px;
+            margin-top: 20px;
+            transform: rotate(30deg);
+            cursor: pointer;
+        }
+
+        div.box div.bottom aside img {
+            height: 60px;
+            vertical-align: middle;
+        }
+
+        div.box div.bottom aside {
+            position: absolute;
+            background-color: #0a74cb;
+            width: 100%;
+            top: -70px;
+            padding: 5px;
+            box-sizing: border-box;
+            display: none;
+            z-index: 10;
+        }
+
+        div.box div.bottom aside.on {
+            display: block;
+        }
+
+        div.box div.bottom aside:after {
+            position: absolute;
+            content: "";
+            border: 10px solid transparent;
+            border-top-color: #0a74cb;
+            bottom: -19px;
+            right: 280px;
+        }
+        div.box div.bottom a, div.box div.bottom a:visited {
+            color: #0b97ff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<header id="head"></header>
+<main>
+    <template id="temp">
+        <tr data-id="{tr_id}">
+            <td>
+                <input type="checkbox" class="check" checked>
+            </td>
+            <td>
+                <img src="{src}">{txt}
+            </td>
+            <td>{price}</td>
+            <td>
+                <span class="reduce">-</span><input class="text" value="1"><span class="add">+</span>
+            </td>
+            <td>{subtotal}</td>
+            <td>
+                <span class="del" data-id="{id}">删除</span>
+            </td>
+        </tr>
+    </template>
+    <div class="box" id="box">
+        <table>
+            <thead>
+            <tr>
+                <th>
+                    <label>
+                        <input type="checkbox" class="checkAll check" checked>全选
+                    </label>
+                </th>
+                <th>商品</th>
+                <th>单价</th>
+                <th>数量</th>
+                <th>小计</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody id="tBody">
+            <!--<tr>
+                <td>
+                    <input type="checkbox">
+                </td>
+                <td>
+                    <img src="images/11(2).jpg">Casio/卡西欧 EX-TR350
+                </td>
+                <td>5999.9</td>
+                <td>
+                    <span class="reduce">-</span>
+                    <input type="text">
+                    <span class="add">+</span>
+                </td>
+                <td>5999.9</td>
+                <td>
+                    <span class="del">删除</span>
+                </td>
+            </tr>-->
+            </tbody>
+        </table>
+        <div class="bottom">
+            <aside id="aside">
+            </aside>
+            <label style="padding-left: 20px">
+                <input type="checkbox" class="checkAll check" checked>全选
+            </label>
+            <span class="delAll">全部删除</span>
+            <div>已选商品：
+                <span class="selected">3</span>件
+            </div>
+            <a href="#" class="show">显示或隐藏</a>
+            <div>合计：￥
+                <span class="total" id="total">7000</span>
+            </div>
+            <div class="js">结算</div>
+        </div>
+    </div>
+</main>
+<footer id="foot" class="footer text-center" style=" width: 100%; position: fixed;bottom: -10px;left: 0;"></footer>
+<script src="js/jquery-2.1.3.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/event.js"></script>
+<script>
+    $('#head').load('header.html');
+    $('#foot').load('footer.html');
+    var box=document.getElementById('box');
+    var temp=document.getElementById('temp').innerHTML;
+    var tBody=document.getElementById('tBody');
+    var aside=document.getElementById('aside');
+    var trs;
+    $.getJSON('php/getCarMessage.php'+location.search,function (res) {
+        res.forEach(function (el) {
+            tBody.innerHTML+=temp.replace('{src}',el.imgsrc).replace('{txt}',el.name).replace('{price}',el.price)
+                .replace('{subtotal}',el.price).replace('{id}',el.id).replace('{tr_id}',el.id);
+        })
+        trs=tBody.querySelectorAll('tr');
+        subTotal();
+        $('#tBody .del').click(function () {
+            var tr=$(this).parent().parent()[0];
+            var flag=true;
+            if(confirm('确定要删除吗？')){
+                $.getJSON('php/delCart.php?id='+$(this).data('id'),function (res) {
+                    if(res===2){
+                        alert('删除成功');
+                        show_num();
+                    }else{
+                        alert('删除失败');
+                    }
+                })
+                tBody.removeChild(tr);
+                var trs=tBody.querySelectorAll('tr');
+                if(trs.length===0) flag=false;
+                trs.forEach(function (tr) {
+                    if(tr.cells[0].children[0].checked===false) flag=false;
+                })
+                checkall[0].checked=checkall[1].checked=flag;
+            }
+        })
+    })
+    var total=box.querySelectorAll('.total')[0];
+    var selected=box.querySelectorAll('.selected')[0];
+    var checkall=box.querySelectorAll("input.checkAll");
+    box.onclick=function (ev) {
+        var e=ev||event;
+        var target=e.target||e.srcElement;
+        var cls=target.className;
+        if(cls==='checkAll check') cls='check';
+        switch(cls){
+            case 'add':
+                target.previousElementSibling.value++;
+                target.parentNode.nextElementSibling.innerText=parseFloat(target.previousElementSibling.value*target.parentNode.previousElementSibling.innerText).toFixed(2);
+                break;
+            case 'reduce':
+                if(target.nextElementSibling.value<=1) target.nextElementSibling.value=1;
+                else
+                    target.nextElementSibling.value--;
+                target.parentNode.nextElementSibling.innerText=parseFloat(target.nextElementSibling.value*target.parentNode.previousElementSibling.innerText).toFixed(2);
+                break;
+            case 'text':
+                target.onblur=function () {
+                    if(isNaN(target.value)) target.value=1;
+                    target.parentNode.nextElementSibling.innerText=parseFloat(target.value*target.parentNode.previousElementSibling.innerText).toFixed(2);
+                    this.onblur=null;
+                }
+                break;
+            case 'check':
+                funChk.call(target);
+                break;
+            case 'delAll':
+                if(confirm('确定要全部删除吗？')){
+                    tBody.innerHTML='';
+                    checkall[0].checked=checkall[1].checked=false;
+                    $.getJSON('php/delAll.php',function (res) {
+                        if(res===2){
+                            alert('删除成功');
+                            show_num();
+                        }else{
+                            alert('删除失败');
+                        }
+                    })
+                }
+                break;
+            case 'show':
+                aside.classList.toggle('on');
+                break;
+            case 'cancel':
+                var trs=tBody.querySelectorAll('tr');
+                var i=target.getAttribute('data-i');
+                trs[i].cells[0].children[0].checked=false;
+                checkall[0].checked = checkall[1].checked = false;
+                break;
+        }
+        subTotal();
+    }
+    var arr=[];
+    var sum=$('#box .bottom .selected').innerText;
+    var number=$('#box .bottom .total').innerText;
+    $('#box .js').click(function () {
+        var arr=[];
+        $.getJSON('php/isSend.php',function (res) {
+            if (res[0]===1){
+                alert("上次购买的商品还没发货");
+            } else {
+                trs.forEach(function (tr) {
+                    var tds=tr.cells;
+                    if (tds[0].children[0].checked) {
+                        var id=tr.getAttribute('data-id');
+                        var num=tds[3].children[1].value;
+                        var title=tds[1].innerText;
+                        arr.push({id,num,title});
+                    }
+                })
+                var jsonStr=JSON.stringify(arr);
+                var sum=parseFloat($('#total').text());
+                $.getJSON('php/js.php',{json:jsonStr,total:sum},function (res) {
+                    if (res){
+                        alert('结算完成');
+                        location.href='index.html';
+                    }else {
+                        alert('结算失败');
+                    }
+                })
+            }
+        })
+    })
+    function subTotal() {
+        var sum=0,num=0;
+        var trs=tBody.querySelectorAll('tr');
+        var str='';
+        trs.forEach(function (tr,i) {
+            if(tr.children[0].children[0].checked){
+                sum+=(parseFloat(tr.children[4].innerText));
+                num+=parseInt(tr.children[3].children[1].value);
+                var src = tr.cells[1].children[0].getAttribute('src');
+                str += `<div><img src="${src}"><span class="cancel"  data-i="${i}">取消选择</span></div>`
+            }
+        });
+        aside.innerHTML=str;
+        if (aside.innerHTML === '')
+            aside.classList.remove('on');
+        total.innerText=sum.toFixed(2);
+        selected.innerText=num;
+    }
+    function  funChk() {
+        var _this=this;
+        var flag=true;
+        if(this.classList.contains('checkAll')){
+            trs.forEach(function (tr) {
+                tr.cells[0].children[0].checked=_this.checked;
+            })
+            checkall[0].checked=checkall[1].checked=this.checked;
+        }else{
+            trs.forEach(function (tr) {
+                if(tr.cells[0].children[0].checked===false) flag=false;
+            })
+            checkall[0].checked=checkall[1].checked=flag;
+        }
+    }
+    subTotal();
+</script>
+</body>
+</html>

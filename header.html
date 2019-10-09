@@ -1,0 +1,203 @@
+<nav class="navbar navbar-inverse navbar-fixed-top mynav" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <!-- sr-only 用于提升可访问性（accessibility），它的含义是 screen reader only（仅提供给屏幕阅读器使用） -->
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <!-- 这个元素在移动设备中将被折叠起来 -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav ul-one">
+                <li class="hidden-sm"><a href="index.html">首页</a></li>
+                <li class="hidden-sm hidden-md"><a href="#">产品介绍</a></li>
+                <li class="hidden-sm hidden-md"><a href="#">了解详情</a></li>
+                <li class="hidden-sm"><a href="#">关于我们</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#" id="cart">购物车<span class="badge" id="carNum">0</span></a></li>
+                <li id="log" class="tog"><a data-toggle="modal" href="#login">登录</a></li>
+                <li id="reg" class="tog"><a data-toggle="modal" href="#register">注册</a></li>
+                <li id="nicheng" class="tog hidden"><a href="#"></a></li>
+                <li id="logout" class="tog hidden"><a href="#">注销</a></li>
+                <li class="hidden tog"><a href="edit_info.html">修改个人信息</a></li>
+                <li><a href="#">English</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div id="login" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">请登录</h4>
+            </div>
+            <form id="form_login" class="form-horizontal">
+                <div class="modal-body">
+                    <div class="form-group has-feedback">
+                        <label class="col-sm-3 control-label" for="zh1">账号：</label>
+                        <div class="col-sm-9 require">
+                            <input type="text" class="form-control" name="user_name" id="zh1">
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <label class="col-sm-3 control-label" for="pw1">密码：</label>
+                        <div class="col-sm-9 require">
+                            <input type="password"  class="form-control" name="pwd" id="pw1">
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <label class="col-sm-3 control-label" for="yzm">验证码：</label>
+                        <div class="col-sm-5 require">
+                            <input type="text" class="form-control" name="yzm" id="yzm">
+                        </div>
+                        <div class="col-sm-4">
+                            <img src="php/idcode.php" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="submit1" type="submit" class="btn btn-primary">登录</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="register" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">请注册</h4>
+            </div>
+            <form class="form-horizontal" role="form" id="form_register">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="zh">账号：</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="zh"  name="zh" placeholder="请输入您的账号">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="user">用户名：</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="user"  name="username" placeholder="请输入您的用户名">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="pwd">密码：</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" id="pwd"
+                                   name="pwd"  placeholder="请输入您的密码">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="repwd">确认密码：</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" id="repwd"
+                                   placeholder="请再输入您的密码">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="nc">昵称：</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="nc"
+                                   name="nc"    placeholder="请输入您的昵称">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="address">地址：</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="address"
+                                   name="address"    placeholder="请输入您的地址">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="tel">电话：</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="tel"
+                                   name="tel"    placeholder="请输入您的电话">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="submit2" type="submit" class="btn btn-primary">注册</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function show_num() {
+        $.getJSON('php/getCarNum.php',function (res) {
+            $('#carNum').text(res);
+        })
+    }
+    function tog(){
+        $.getJSON('php/session.php',function (res) {
+            if(res.flag){
+                $('.tog').toggleClass('hidden');
+                $('#nicheng a').text('欢迎你：'+res.data.nc);
+                show_num();
+            }
+        })
+    }
+    tog();
+    $('#logout').click(function () {
+        $.getJSON('php/logout.php',function (flag) {
+            if(flag){
+                $('.tog').toggleClass('hidden');
+                $('#carNum').text(0);
+            }
+        })
+    })
+    $('#form_register').submit(function (e) {
+        e.preventDefault();
+        if($('#pwd').val()!==$('#repwd').val()){
+            alert('输入的两次密码不一致！');
+        }else{
+            $.post('php/register.php',$('#form_register').serialize(),function (res) {
+                if(res===2){
+                    $('#message1').html('用户名已存在！');
+                }else{
+                    alert('注册成功！');
+                    $('#register').modal('hide');
+                   tog();
+                }
+            },'json')
+        }
+    })
+    $('#form_login').submit(function (e) {
+        e.preventDefault();
+        $.post('php/login.php',$('#form_login').serialize(),function (flag) {
+            if(flag===1){
+                alert('输入的验证码有误！');
+            }else if(flag===2){
+                alert('账号或密码错误！');
+            }else{
+               tog();
+               $('#login').modal('hide');
+            }
+        },'json')
+    })
+    $('#cart').click(function () {
+        $.getJSON('php/session.php',function (res) {
+            if(res.flag){
+                location.href='cart.html?id='+res['data']['id'];
+            }else{
+                alert('请先登录');
+            }
+        })
+    })
+</script>
+

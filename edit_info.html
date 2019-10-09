@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改个人信息</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+        main{
+            margin-top: 150px;
+        }
+    </style>
+</head>
+<body>
+<header id="header"></header>
+<main class="container">
+    <form class="form-horizontal" id="edit"></form>
+    <a href="edit_pwd.html" class="pull-right">修改密码</a>
+</main>
+<footer id="foot" class="footer text-center" style=" width: 100%; position: fixed;bottom: -10px;left: 0;"></footer>
+<script src="js/jquery-2.1.3.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script>
+    $('#header').load('header.html');
+    $('#foot').load('footer.html');
+    $.getJSON('php/getInfo.php',function (res) {
+        var str=`<div class="form-group">
+                <label class="col-sm-4 control-label">用户名</label>
+                <div class="col-sm-5">
+                    <input value="${res.username}" type="text" name="name" class="form-control" placeholder="username">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">昵称</label>
+                <div class="col-sm-5">
+                    <input value="${res.nc}" type="text" name="nc" class="form-control" placeholder="昵称">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">通讯地址</label>
+                <div class="col-sm-5">
+                    <input value="${res.address}" type="text" name="address" class="form-control" placeholder="通讯地址">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">手机号码</label>
+                <div class="col-sm-5">
+                    <input value="${res.tel}" type="number" name="tel" class="form-control" placeholder="手机号码">
+                </div>
+            </div>
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary">修改</button>
+            <button type="reset" class="btn btn-default">重置</button>
+        </div>`;
+        $('#edit').html(str);
+    })
+    $('#edit').submit(function (e) {
+        e.preventDefault();
+        $.post('php/edit_info.php',$(this).serialize(),function (res) {
+            if (res){
+                alert('修改成功！');
+            } else {
+                alert('修改失败！');
+            }
+        },'json');
+    })
+</script>
+</body>
+</html>

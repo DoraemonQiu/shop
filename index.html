@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>淘宝网</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+        main{
+            margin-top: 80px;
+        }
+        .content{
+            margin-top: 20px;
+        }
+        .content figure{
+            border: 1px solid #00A8FF;
+            padding: 5px;
+            margin-bottom:20px;
+        }
+        .content figure img{
+            width: 100%;
+        }
+        .content figure p{
+            line-height: 30px;
+        }
+        .content figure span{
+            color: red;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+<header id="head"></header>
+<main>
+    <div class="container">
+        <div class="row">
+            <form id="search" class="form-horizontal" role="form">
+                <div class="form-group has-feedback">
+                    <label class="col-sm-1 control-label" for="title1">标题：</label>
+                    <div class="col-sm-9 require">
+                        <input type="text" class="form-control" id="title1" name="title">
+                    </div>
+                    <button class="col-sm-1 btn btn-primary submit">搜索</button>
+                </div>
+            </form>
+        </div>
+        <div class="row content" id="content">
+
+        </div>
+        <div class="page text-center" style="margin-bottom: 50px">
+            <ul class="pagination" id="pagination">
+                <li id="begin"><a href="##">&laquo;首页</a></li>
+                <li><a href="##">&lt;上一页</a></li>
+                <li><a href="##">下一页&gt;</a></li>
+                <li id="end"><a href="##">尾页&raquo;</a></li>
+                <li class="disabled">
+                    <a href="##" id="pages"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</main>
+<footer id="foot" class="footer text-center" style=" width: 100%; position: fixed;bottom: -10px;left: 0;"></footer>
+<script src="js/jquery-2.1.3.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script>
+    $('#head').load('header.html');
+    $('#foot').load('footer.html');
+    var cur_page=0,pages,key='';
+    function show(){
+        $('#content').empty();
+        $.getJSON('php/list.php',{cur_page,key},function (res) {
+            pages=res['pages'];
+            var str='';
+            res['list'].forEach(function (el) {
+               str+=`<div class="col-md-3">
+                <figure>
+                    <a href="detail.html?id=${el.id}"><img src="${el.imgsrc}" alt=""></a>
+                    <p>${el.name}</p>
+                    <span>￥${el.price}</span>
+                </figure>
+            </div>`
+            })
+            $('#content').html(str);
+            $('#pages').text(`${cur_page+1}/${pages}`);
+        })
+    }
+    function disable(){
+        if(cur_page===0){
+            $('#begin').next().addClass('disabled');
+            $('#begin').addClass('disabled');
+            $('#end').removeClass('disabled');
+            $('#end').prev().removeClass('disabled');
+        }else if(cur_page===pages-1){
+            $('#begin').removeClass('disabled');
+            $('#begin').next().removeClass('disabled');
+            $('#end').addClass('disabled');
+            $('#end').prev().addClass('disabled');
+        }else{
+            $('#begin').removeClass('disabled');
+            $('#begin').next().removeClass('disabled');
+            $('#end').removeClass('disabled');
+            $('#end').prev().removeClass('disabled');
+        }
+    }
+    show();
+    disable();
+    $('#pagination').on('click','li',function () {
+        var index = $(this).index();
+        switch(index){
+            case 0:
+                cur_page=0
+                break;
+            case 1:
+                if(cur_page===0) cur_page===0
+                else cur_page--;
+                break;
+            case 2:
+                if(cur_page===pages-1) cur_page=pages-1;
+                else cur_page++;
+                break;
+            case 3:
+                cur_page=pages-1;
+                break;
+        }
+        show();
+        disable();
+    })
+    $('#search').submit(function (e) {
+        e.preventDefault();
+        key=$('#title1').val().trim();
+        show();
+        disable();
+    })
+</script>
+</body>
+</html>
